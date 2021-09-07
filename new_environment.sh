@@ -5,8 +5,8 @@ sudo apt upgrade
 
 echo "Installing apps"
 sudo apt install -y \
-	build-essential autotools git cmake meld catfish git-cola cppcheck valgrind heaptrack heaptrack-gui \
-	vim htop synaptic flameshot qalculate tilix wireshark xournalpp zeal geany geany-plugins \
+	build-essential automake git cmake meld catfish git-cola cppcheck valgrind heaptrack heaptrack-gui \
+	vim htop synaptic flameshot tilix wireshark zeal geany geany-plugins \
 	exuberant-ctags cscope zip ccache curl wget default-jdk gettext python3-pip 
 
 echo "Installing libraries"
@@ -15,7 +15,7 @@ sudo apt install -y libncurses-dev
 
 echo "Installing Docker"
 
-sudo apt install \
+sudo apt install -y \
     apt-transport-https \
     ca-certificates \
     gnupg \
@@ -28,3 +28,9 @@ echo \
 
 sudo apt update
 sudo apt -y install docker-ce docker-ce-cli containerd.io
+
+# Add user to docker group for using docker without sudo command.
+sudo groupadd docker
+sudo usermod -aG docker $USER
+
+
