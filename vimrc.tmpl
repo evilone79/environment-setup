@@ -1,0 +1,126 @@
+set nocompatible
+
+syntax enable
+filetype plugin on
+set number
+
+set wildmenu
+set smartcase
+set wildignorecase
+set autoindent
+set completeopt-=preview
+"colorscheme simple-dark
+
+set expandtab
+set tabstop=4
+set shiftwidth=4
+set backspace=2
+set encoding=utf-8
+set laststatus=2
+
+let g:ycm_confirm_extra_conf = 0
+let g:ycm_key_list_stop_completion = ['<TAB>', '<Enter>']
+let g:ycm_key_list_select_completion = ['<Down>']
+let g:ycm_auto_hover=''
+let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
+let g:ycm_add_preview_to_completeopt = 0
+
+let g:cmake_build_type = 'Debug'
+let g:cmake_cxx_compiler = '/usr/bin/g++'
+let g:cmake_c_compiler = '/usr/bin/gcc'
+let g:cmake_ycm_symlinks = 'True'
+
+
+let g:ycm_filter_diagnostics = {                                      
+  \ "c": {                                                            
+  \   "regex": [                                                      
+  \     "-mno-fp-ret-in-387",                                         
+  \     "-mpreferred-stack-boundary=3",                               
+  \     "-mskip-rax-setup",                                           
+  \     "-mindirect-branch=thunk-extern",                             
+  \     "-mindirect-branch-register",                                 
+  \     "-fno-allow-store-data-races",                                
+  \     "-fplugin-arg-structleak_plugin-byref-all",                   
+  \     "-fno-var-tracking-assignments",                              
+  \     "-fconserve-stack",                                           
+  \     "-mrecord-mcount"                                             
+  \   ]                                                               
+  \ }                                                                 
+  \}       
+
+call plug#begin('~/.vim/plugged')
+Plug 'itchyny/lightline.vim'
+Plug 'scrooloose/nerdtree'
+Plug 'valloric/youcompleteme'
+Plug 'jiangmiao/auto-pairs'
+"Plug 'brookhong/cscope.vim'
+Plug 'mileszs/ack.vim'
+Plug 'chazy/cscope_maps'
+Plug 'tyok/nerdtree-ack'
+Plug 'kien/ctrlp.vim'
+Plug 'xolox/vim-misc'
+Plug 'xolox/vim-session'
+Plug 'vhdirk/vim-cmake'
+"Plug 'jalcine/cmake.vim'
+call plug#end()
+
+cnoreabbrev Ack Ack!
+nnoremap <Leader>a :Ack!<Space>
+nnoremap <Leader>p :CtrlP<Space>
+
+"nnoremap <leader>fa :call CscopeFindInteractive(expand('<cword>'))<CR>
+"nnoremap <leader>l :call ToggleLocationList()<CR>
+"
+"" s: Find this C symbol
+"nnoremap  <leader>fs :call CscopeFind('s', expand('<cword>'))<CR>
+"" g: Find this definition
+"nnoremap  <leader>fg :call CscopeFind('g', expand('<cword>'))<CR>
+"" d: Find functions called by this function
+"nnoremap  <leader>fd :call CscopeFind('d', expand('<cword>'))<CR>
+"" c: Find functions calling this function
+"nnoremap  <leader>fc :call CscopeFind('c', expand('<cword>'))<CR>
+"" t: Find this text string
+"nnoremap  <leader>ft :call CscopeFind('t', expand('<cword>'))<CR>
+"" e: Find this egrep pattern
+"nnoremap  <leader>fe :call CscopeFind('e', expand('<cword>'))<CR>
+"" f: Find this file
+"nnoremap  <leader>ff :call CscopeFind('f', expand('<cword>'))<CR>
+"" i: Find files #including this file
+"nnoremap  <leader>fi :call CscopeFind('i', expand('<cword>'))<CR>
+
+function! LoadCscope()
+  let db = findfile("cscope.out", ".;")
+  if (!empty(db))
+    let path = strpart(db, 0, match(db, "/cscope.out$"))
+    set nocscopeverbose " suppress 'duplicate connection' error
+    exe "cs add " . db . " " . path
+    set cscopeverbose
+  " else add the database pointed to by environment variable
+"  elseif $CSCOPE_DB != ""
+"    cs add $CSCOPE_DB
+  endif
+endfunction
+au BufEnter /* call LoadCscope()
+
+nnoremap gd :YcmCompleter GoToDefinition<CR>
+nnoremap gi :YcmCompleter GoToInclude<CR>
+nnoremap gr :YcmCompleter GoToReferences<CR>
+nnoremap gs :YcmCompleter GoToSymbol<CR>
+nmap sd <plug>(YCMHover)
+
+map <Leader>x :%!xxd<CR>
+"map <Leader>p :bp<CR>
+map <Leader>n :bn<CR>
+map <Leader>l :ls<CR>
+map <Leader>r :reg<CR>
+map <Leader>t :tabnew<CR>
+map <Leader>c :tabc<CR>
+map <Leader>d :bd<CR>
+
+map <F10> :NERDTreeToggle %<CR>
+map <F9> :NERDTreeFocus<CR>
+
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-h> <C-W>h
+map <C-l> <C-W>l
