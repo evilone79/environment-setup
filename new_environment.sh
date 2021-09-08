@@ -8,7 +8,7 @@ sudo apt install -y \
 	build-essential automake git cmake meld catfish git-cola cppcheck valgrind heaptrack heaptrack-gui \
 	vim htop synaptic flameshot tilix wireshark zeal geany geany-plugins \
 	exuberant-ctags cscope zip ccache curl wget default-jdk gettext python3-pip apt-transport-https \
-  ca-certificates gnupg lsb-release
+  ca-certificates gnupg lsb-release zsh
 
 echo "Installing libraries"
 sudo apt install -y libncurses-dev python3-dev
@@ -37,11 +37,10 @@ sudo apt -y install docker-ce docker-ce-cli containerd.io
 sudo groupadd docker
 sudo usermod -aG docker $USER
 
-sudo apt install zsh
 cp ./zshrc.tmpl ~/.zshrc
 chsh -s $(which zsh)
 
-sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"  "" --unattended
 cp ./zshrc.tmpl ~/.zshrc
 
 
