@@ -20,7 +20,7 @@ cp ./vimrc.tmpl ~/.vimrc
 vim +'PlugInstall --sync' +qa
 
 workdir=$(pwd)
-cd ~/.vim/bundle/YouCompleteMe
+cd ~/.vim/plugged/YouCompleteMe
 ./install.py --clangd-completer
 cd $workdir
 
