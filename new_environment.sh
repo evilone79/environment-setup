@@ -1,26 +1,32 @@
 #!/bin/sh
 
 sudo apt update
-sudo apt upgrade
+sudo apt -y upgrade
 
 echo "Installing apps"
 sudo apt install -y \
 	build-essential automake git cmake meld catfish git-cola cppcheck valgrind heaptrack heaptrack-gui \
 	vim htop synaptic flameshot tilix wireshark zeal geany geany-plugins \
-	exuberant-ctags cscope zip ccache curl wget default-jdk gettext python3-pip 
+	exuberant-ctags cscope zip ccache curl wget default-jdk gettext python3-pip apt-transport-https \
+        ca-certificates gnupg lsb-release
 
 echo "Installing libraries"
-sudo apt install -y libncurses-dev
+sudo apt install -y libncurses-dev python3-dev
+
+echo "Installing VimPlug"
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+cp ./vimrc.tmpl ~/.vimrc
+vim +'PlugInstall --sync' +qa
+
+workdir=$(pwd)
+cd ~/.vim/plugged/youcompleteme
+./install.py --clangd-completer
+cd $workdir
+
 
 
 echo "Installing Docker"
-
-sudo apt install -y \
-    apt-transport-https \
-    ca-certificates \
-    gnupg \
-    lsb-release
-
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
 echo \
   "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
