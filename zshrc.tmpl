@@ -96,8 +96,6 @@ unsetopt share_history
 export PATH=$PATH:/usr/local/go/bin
 export PATH="/usr/lib/ccache:$PATH"
 export PATH="${HOME}/.local/bin:$PATH"
-export PATH="${HOME}/aws-sso-ssm:$PATH"
-export PATH=$PATH:/usr/share/zookeeper/bin
 export PATH=$PATH:"${HOME}/opt"
 export CCACHE_MAXSIZE="20G"
 # Compilation flags
@@ -109,8 +107,8 @@ export CCACHE_MAXSIZE="20G"
 # For a full list of active aliases, run `alias`.
 #
 # Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
+# alias zshconfig="vim ~/.zshrc"
+# alias ohmyzsh="vim ~/.oh-my-zsh"
 
 alias glog='git log --all --decorate --oneline --graph'
 
@@ -122,11 +120,12 @@ alias aptse="apt-cache search"
 alias aptsh="apt-cache show"
 
 
-if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
-        source /etc/profile.d/vte.sh
-fi
+#if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
+#        source /etc/profile.d/vte.sh
+#fi
 
 alias gh="history | grep "
+alias gp="ps aux | grep "
 
 mkcd() {
     mkdir -p "$1" && cd "$1"
