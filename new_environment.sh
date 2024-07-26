@@ -5,10 +5,10 @@ sudo apt -y upgrade
 
 echo "Installing apps"
 sudo apt install -y \
-	build-essential automake git cmake meld catfish git-cola cppcheck valgrind heaptrack heaptrack-gui \
+	build-essential g++ automake git cmake meld catfish git-cola cppcheck valgrind heaptrack heaptrack-gui \
 	vim htop synaptic flameshot tilix wireshark zeal geany geany-plugins \
 	exuberant-ctags cscope zip ccache curl wget default-jdk gettext python3-pip apt-transport-https \
-  ca-certificates gnupg lsb-release zsh
+  ca-certificates gnupg lsb-release zsh baobab
 
 echo "Installing libraries"
 sudo apt install -y libncurses-dev python3-dev
