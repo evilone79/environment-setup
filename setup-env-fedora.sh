@@ -6,16 +6,23 @@ sudo dnf upgrade -y
 echo "Installing apps"
 sudo dnf install -y \
     @development-tools gcc-c++ automake cmake meld catfish cppcheck valgrind heaptrack vim \
-    htop synaptic flameshot tilix wireshark zeal geany \
+    htop flameshot tilix wireshark zeal geany \
     ctags cscope zip ccache curl wget java-latest-openjdk gettext python3-pip \
     dnf-plugins-core ca-certificates gnupg2 zsh baobab clang clang-tools-extra bear \
     gawk texinfo chrpath socat xterm lzop elfutils-libelf-devel
 
-wget https://github.com/aristocratos/btop/releases/download/v1.3.2/btop-x86_64-linux-musl.tbz
-tar -xvf btop-x86_64-linux-musl.tbz
-cd btop
-sudo make install
-sudo make setuid
+
+workdir=$(pwd)
+
+if [[ ! -f /usr/local/bin/btop ]]; then
+    wget https://github.com/aristocratos/btop/releases/download/v1.3.2/btop-x86_64-linux-musl.tbz
+    tar -xvf btop-x86_64-linux-musl.tbz
+    cd btop
+    sudo make install
+    sudo make setuid
+    cd $workdir
+fi
+
 
 echo "Installing libraries"
 sudo dnf install -y ncurses-devel python3-devel
@@ -26,7 +33,6 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.c
 cp ./vimrc.tmpl ~/.vimrc
 vim +'PlugInstall --sync' +qa
 
-workdir=$(pwd)
 cd ~/.vim/plugged/youcompleteme
 ./install.py --clangd-completer
 cd $workdir
@@ -41,10 +47,10 @@ sudo dnf install -y docker-ce docker-ce-cli containerd.io
 # Add user to docker group for using docker without sudo command.
 sudo groupadd docker
 sudo usermod -aG docker $USER
-systemctl start docker
+sudo systemctl start docker
 
 cp ./zshrc.tmpl ~/.zshrc
-chsh -s $(which zsh)
+sudo chsh -s $(which zsh)
 
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 cp ./zshrc.tmpl ~/.zshrc
