@@ -130,3 +130,16 @@ alias gp="ps aux | grep "
 mkcd() {
     mkdir -p "$1" && cd "$1"
 }
+
+alias get_idf=". $HOME/esp/v5.3.1/esp-idf/export.sh"
+alias r3-docker="docker start -ai thirdreality-build"
+
+TOOLCHAIN_ROOT=
+
+export XTOOLS_3R="$TOOLCHAIN_ROOT/3reality/a113x_202210_silo/toolchain/gcc/linux-x86/arm/gcc-arm-10.3-2021.07-x86_64-arm-none-linux-gnueabihf/bin"
+export XTOOLS_ARM="$TOOLCHAIN_ROOT/toolchains/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin"
+export XTOOLS_LP="$TOOLCHAIN_ROOT/toolchains/gcc-linaro-6.3.1-2017.05-x86_64_arm-linux-gnueabihf/bin"
+export XTOOLS_ZO="$TOOLCHAIN_ROOT/kernel_stuff/buildroot-zero/output/host/bin/arm-linux"
+export XTOOLS_Z3="$TOOLCHAIN_ROOT/kernel_stuff/buildroot/output/host/bin/aarch64-linux"
+
+
